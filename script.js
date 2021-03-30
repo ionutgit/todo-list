@@ -1,9 +1,3 @@
-// var button = document.getElementsByTagName("button")[0];
-
-// button.addEventListener("click", function() {
-// 	console.log("click");
-// });
-
 var button = document.getElementById("enter");
 var input = document.getElementById("userinput");
 var ul = document.querySelector("ul");
@@ -14,9 +8,14 @@ function inputLength() {
 
 function createListElement() {
 	var li = document.createElement("li");
- 	li.appendChild(document.createTextNode(input.value));
- 	ul.appendChild(li);
- 	input.value="";
+	li.appendChild(document.createTextNode(input.value));
+	li.addEventListener('click', toggleDone);
+	ul.appendChild(li);
+	var button = document.createElement("button");
+	button.appendChild(document.createTextNode('Delete item'));
+	button.addEventListener('click', deleteItem);
+	ul.appendChild(button);
+	input.value = "";
 }
 
 function addListAfterClick() {
@@ -31,38 +30,23 @@ function addListAfterKeypress(event) {
 	}
 }
 
+function toggleDone(event) {
+	 event.target.classList.toggle("done");
+}
+
+function deleteItem(event) {
+	event.target.previousSibling.remove();
+	event.target.remove();
+}
+
 button.addEventListener("click", addListAfterClick);
 
 input.addEventListener("keypress", addListAfterKeypress);
 
-// 1 preiau elementele care ma intereseaza
-// cel mai bine, dupa id
-// CACHING data in vars
+document.querySelectorAll('li').forEach(li => {
+  li.addEventListener('click', toggleDone);
+});
 
-// 2. adaug evenimentul (addEventListener) pt click
-
-// 3.1 creeam un element html li
-
-// 3.2 atasam un copil la elementul li cu functia appendChild
-// functia createTextNode - creaza un text pt elementul html li
-
-// 4. adugam valoarea din input (input.value)
-
-// 5. verificam daca input-ul este gol
-// pt ca sa nu introducem o valoare empty
-
-// 6. resetam valoarea input-ului, dupa fiecare
-// actiune a evenimentului (input.value = "")
-
-// 7. dorim sa reactionam la apasarea unei taste
-// event - keypress
-// IMPORTANT: oridecateori adaugam un eveniment,
-// parametrul 2 e o functie caruia i se transmite in mod automat
-// un parametru care descrie evenimentul
-// UNDE ai adaugat event-ul (sa nu te astepti sa mearga pe INPUT,
-/// si tu ai pus pe BUTTON)
-
-// 8.DRY, REFFACTORING
-// codul duplicat il trecem  in functii separate
-// functile anonime le trecem in functii separate
-
+document.querySelectorAll(".item").forEach(button => {
+	button.addEventListener('click', deleteItem);
+});
