@@ -2,6 +2,8 @@
 
 # To Do List app 
 
+This is an exercise from ZeroToMastery Academy - Web developer course (section10 - Dom Manipulation, video3 - Dom exercise)
+
 ## v.1.0.1
 
 If you click on the list item, it toggles the .done class on and off.<br>
